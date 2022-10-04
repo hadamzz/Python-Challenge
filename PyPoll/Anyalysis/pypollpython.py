@@ -15,7 +15,8 @@ votes_for_rad =[]
 votes_for_rad = 0
 winning_votes = []
 winning_votes = 0
-winner_name=[]
+winner = []
+winner = 0
 
 # Establish path to resouce file
 pypoll_csv = os.path.join('..', 'Resources', 'election_data.csv')
@@ -42,10 +43,19 @@ with open(pypoll_csv) as csv_file:
         # Calculate totals votes for each candidate
         if row[2] == "Charles Casper Stockham":
             votes_for_ccs += 1
+        if votes_for_ccs > winner:
+            winner = votes_for_ccs
+            winner_name = row[2]
         if row[2] == "Diana DeGette":
             votes_for_dg += 1
+        if votes_for_dg > winner:
+            winner = votes_for_dg = winner
+            winner_name = row[2]
         if row[2] == "Raymon Anthony Doane":
             votes_for_rad += 1
+        if votes_for_rad > winner:
+            winner = votes_for_rad
+            winner_name = row[2]
             
         #Calculate percentages of votes for each candidate
         
@@ -53,16 +63,12 @@ with open(pypoll_csv) as csv_file:
         percentage_dg = (votes_for_dg)/(int(line_count))*100
         percentage_rad = (votes_for_rad)/(int(line_count))*100
                         
-# (4) The winner of the election vased on popular vote
-        list_of_vote_totals = [votes_for_ccs, votes_for_dg, votes_for_rad]
-        winner = max(list_of_vote_totals)
-      
-        
+# (4) The winner of the election based on popular vote        
         #if (vote > winning_count):
         #winning_count = votes
 
 
-# (5) Print the analysis to the terminal
+# (5) Print the analysis to the terminal 
 print(f"Election Results:")
 print(f"-----------------------")
 print(f"Total number of votes: {line_count}.")
